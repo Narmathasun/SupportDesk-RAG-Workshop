@@ -1,0 +1,21 @@
+yamlname: Test OpenAI Secret
+
+on: [push] # This triggers the test every time you save/commit code
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run test script
+        env:
+          # This links your secret to the code environment
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} 
+        run: python test_secret.py
